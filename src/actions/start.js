@@ -76,7 +76,14 @@ export const initialAction = async (options = {}) => {
 			confirmDownload = true; // Auto-confirm in command line mode
 		}
 		
-		const statusDownload = await Downloader(confirmDownload, content);
+		// Sanitize filename for filesystem compatibility
+		const sanitizedName = content.name
+			.replace(/[<>:"/\\|?*]/g, '_')  // Replace invalid characters with underscore
+			.replace(/\s+/g, '_')           // Replace spaces with underscore
+			.replace(/_+/g, '_')            // Replace multiple underscores with single
+			.replace(/^_|_$/g, '');         // Remove leading/trailing underscores
+		
+		const statusDownload = await Downloader(confirmDownload, content.value, { name: sanitizedName });
 		console.log(statusDownload.message);
 	} catch (error) {
 		if (error.name === 'ExitPromptError') {
