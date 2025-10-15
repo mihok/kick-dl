@@ -15,9 +15,6 @@ export const Downloader = (
 			});
 		}
 
-		console.log(`[DEBUG] Download URL: ${url}`);
-		console.log(`[DEBUG] Download options:`, options);
-
 		const args = [
 			'-y',
 			'-i',
@@ -32,8 +29,6 @@ export const Downloader = (
 		];
 
 		const command = pathToFfmpeg;
-		console.log(`[DEBUG] FFmpeg command: ${command} ${args.join(' ')}`);
-		
 		const ffmpegProcess = spawn(command, args);
 		let stderrOutput = '';
 
@@ -66,11 +61,9 @@ export const Downloader = (
 		ffmpegProcess.stderr.on('data', (data) => {
 			const output = data.toString();
 			stderrOutput += output;
-			console.log(`[FFmpeg stderr] ${output}`);
 		});
 
 		ffmpegProcess.on('close', (code) => {
-			console.log(`[DEBUG] FFmpeg process exited with code: ${code}`);
 			if (code !== 0) {
 				reject({
 					status: false,
@@ -85,7 +78,6 @@ export const Downloader = (
 		});
 
 		ffmpegProcess.on('error', (error) => {
-			console.log(`[DEBUG] FFmpeg process error:`, error);
 			reject({
 				status: false,
 				message: `FFmpeg process error: ${error.message}`,
