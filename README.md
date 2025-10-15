@@ -48,6 +48,70 @@ pnpm add -g kick-dl
 >
 > This approach is due to the absence of a Public Kick API. Once one is made available, the CLI will be updated, and performance will be improved.
 
+## Usage :rocket:
+
+Kick-DL supports both interactive and command-line modes:
+
+### Interactive Mode (Default)
+
+Simply run the command without any arguments to enter interactive mode:
+
+```sh
+kick-dl
+# or
+kick-dl start
+```
+
+This will guide you through:
+1. Entering the channel name
+2. Selecting content type (VOD or Clip)
+3. Choosing specific content to download
+4. Confirming the download
+
+### Command Line Mode
+
+Use command line arguments for automated downloads:
+
+```sh
+# List available content
+kick-dl -c channelname -t vod --list
+
+# Download specific content by number
+kick-dl -c channelname -t vod -n 1
+
+# Download clips
+kick-dl -c channelname -t clip -n 2
+
+# Force interactive mode even with arguments
+kick-dl -c channelname -i
+```
+
+#### Command Line Options
+
+- `-c, --channel <channel>` - Channel name to download from (required for non-interactive mode)
+- `-t, --type <type>` - Content type: `vod` or `clip` (required for non-interactive mode)
+- `-n, --number <number>` - Content number to download (1-based index)
+- `--list` - List available content without downloading
+- `-i, --interactive` - Force interactive mode
+- `-h, --help` - Show help information
+- `-V, --version` - Show version number
+
+#### Examples
+
+```sh
+# List all VODs from a channel
+kick-dl -c xqc -t vod --list
+
+# Download the first VOD
+kick-dl -c xqc -t vod -n 1
+
+# Download the third clip
+kick-dl -c xqc -t clip -n 3
+
+# Interactive mode (same as running without arguments)
+kick-dl -i
+```
+
 ## Disclaimer :warning:
 
 This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with `Kick` or any of its subsidiaries or its affiliates. The official Kick website can be found at [kick.com](https://kick.com). `Kick` as well as related names, marks, emblems and images are registered trademarks of their respective owners.
